@@ -1,0 +1,18 @@
+<nav class="main-menu">
+  <ul>
+    <li  *ngFor="let route of routes">
+      <ng-container *ngIf='route.data'>
+        <a [routerLink]="'/' + route.path" routerLinkActive="active">
+          <div class="nav-icon-fa">
+            <span>
+              <i class="{{route.data.icon}}" aria-hidden="true"></i>
+            </span>
+          </div>
+          <span class="nav-text">
+            {{route.data.name}}
+          </span>
+        </a>
+      </ng-container>
+    </li>
+  </ul>
+</nav>

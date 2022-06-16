@@ -1,0 +1,63 @@
+<div class="box configuration update">
+  <div class="box__title">Actualización de información</div>
+
+  <kendo-grid
+    [data]="gridDataActualization"
+    [pageSize]="stateActualization.take"
+    [skip]="stateActualization.skip"
+    [sort]="stateActualization.sort"
+    [sortable]="true"
+    [pageable]="true"
+    [loading]="isLoadingData"
+    (dataStateChange)="dataStateChangeActualization($event)">
+
+    <kendo-grid-column field="glnretailer_name" title="Cliente"></kendo-grid-column>
+
+    <kendo-grid-column field="status" title="Estado" class="status" headerClass="status">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <img *ngIf="validateUpdateState(dataItem.status)"
+          kendoTooltip
+          title="actualizado"
+          src="assets/images/success-icon-20x20.png">
+        <img *ngIf="validateOutdatedState(dataItem.status)"
+          kendoTooltip
+          title="desactualizado"
+          src="assets/images/error-icon-20x20.png">
+        <img *ngIf="validateInProgressState(dataItem.status)"
+          kendoTooltip
+          title="en progreso"
+          src="assets/images/actualization-icon-20x20.png">
+      </ng-template>
+    </kendo-grid-column>
+
+    <kendo-grid-column field="last_update" class="lastUpdated" headerClass="lastUpdated"
+      title="Ultima actualizacion"
+      filter="date">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        {{dataItem.last_update | date: 'short'}}
+      </ng-template>
+    </kendo-grid-column>
+
+    <ng-template kendoGridDetailTemplate let-dataItem>
+      <section>
+        <p><span>Venta:</span> {{dataItem.sale}}</p>
+        <p><span>Dias:</span> {{dataItem.days}}</p>
+        <p><span>Archivos:</span> {{dataItem.files}}</p>
+        <p><span>Puntos de venta:</span> {{dataItem.point_sales}}</p>
+        <p><span>Productos:</span> {{dataItem.products}}</p>
+      </section>
+    </ng-template>
+
+    <ng-template kendoGridNoRecordsTemplate>
+      No hay resultados para esta consulta.
+    </ng-template>
+
+    <kendo-grid-messages
+      pagerPage="Página"
+      pagerOf="de"
+      pagerItems="ítems"
+      pagerItemsPerPage="ítems por página">
+    </kendo-grid-messages>
+  </kendo-grid>
+
+</div>

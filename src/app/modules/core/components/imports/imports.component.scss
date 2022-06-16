@@ -1,0 +1,104 @@
+@import "../../../../../styles/global/utilities.scss";
+
+.wrapButton {
+  @include flexContainer;
+  @include background-material-card;
+  background: white;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrapper__import {
+  width: 49%;
+}
+
+.wrapper__load {
+  width: 49%;
+}
+
+.wrap {
+  @include flexContainer;
+  justify-content: space-between;
+}
+
+.wrapper__table {
+  @include background-material-card;
+  background: white;
+  width: 49%;
+  .status {
+    margin-left: 19px;
+  }
+}
+
+.btn-green-regular {
+  background-color: $green-regular;
+  color: white;
+}
+
+.btn-green-regular:hover {
+  background-color: $green-dark;
+  color: white;
+}
+
+.next-button {
+  float: right;
+}
+
+.prev-button {
+  float: left;
+}
+
+.btn-lightblue {
+  background-color: white;
+  color: #11aef5;
+}
+
+.btn-red {
+  background-color: white;
+  color: red;
+}
+
+.btn-lightblue:hover {
+  background-color: #11aef5;
+  color: white;
+}
+
+.btn-red:hover {
+  background-color: red;
+  color: white;
+}
+
+.wizard {
+  border: 1px;
+  border-color: gray;
+  padding: 20px;
+}
+
+.step-title {
+  font-size: 24px;
+  font: bold;
+}
+
+.step-text {
+  font-size: 16px;
+}
+
+.iconSuccess {
+  color: green;
+  font-size: 20px;
+}
+
+.iconDanger {
+  color: red;
+  font-size: 20px;
+}
+
+.iconWarning {
+  color: orange;
+  font-size: 20px;
+}
+
+.k-radio-label {
+  padding-right: 24px;
+}

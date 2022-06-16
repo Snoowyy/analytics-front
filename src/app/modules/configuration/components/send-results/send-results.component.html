@@ -1,0 +1,62 @@
+<div class="box configuration">
+
+  <div class="box__title">Envío resultados diarios de agotados</div>
+
+  <div class="box__parameters">
+    <div class="parameters">
+      <div class="parameters__list u__w40">
+        <button kendoButton
+          *ngIf="!openDialogMail"
+          (click)="openDialog()">
+          Agregar destinatario
+        </button>
+      </div>
+    </div>
+    <div class="parameter u__mtop">
+      <kendo-grid
+        filterable="menu"
+        [data]="gridUsermail"
+        [pageSize]="stateUsermail.take"
+        [skip]="stateUsermail.skip"
+        [sort]="stateUsermail.sort"
+        [filter]="stateUsermail.filter"
+        [sortable]="true"
+        [pageable]="true"
+        (dataStateChange)="dataStateUserEmail($event)">
+
+        <kendo-grid-column field="usuario" title="Nombre del usuario"></kendo-grid-column>
+
+        <kendo-grid-column field="email" title="Correo electronico"></kendo-grid-column>
+
+        <kendo-grid-column field="estadoIcon" title="Eliminar" [filterable]="false">
+          <ng-template kendoGridCellTemplate let-dataItem>
+            <button class="btn btn-dark">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </ng-template>
+        </kendo-grid-column>
+      </kendo-grid>
+    </div>
+  </div>
+</div>
+
+<kendo-dialog *ngIf="openDialogMail"
+  title="Agregar destinatario"
+  (close)="closeDIalogMail('cancel')"
+  [minWidth]="250"
+  [width]="450">
+  <br>
+  <textarea kendoTextArea placeholder="Ej: destinatario1@email.com, destinatario2@email.com"></textarea>
+  <kendo-upload [saveUrl]="uploadSaveUrl" [removeUrl]="uploadRemoveUrl">
+    <kendo-upload-messages select="Importar CSV"></kendo-upload-messages>
+  </kendo-upload>
+
+  <kendo-dialog-actions>
+    <button kendoButton (click)="closeDIalogMail('no')">
+      Cancelar
+    </button>
+    <button kendoButton (click)="closeDIalogMail('yes')" primary="true">
+      Agregar
+    </button>
+  </kendo-dialog-actions>
+</kendo-dialog>

@@ -1,0 +1,33 @@
+.status {
+  width: 60px;
+  text-align: center !important;
+}
+
+.lastUpdated {
+  width: 150px;
+  text-align: center !important;
+}
+
+kendo-grid {
+  min-height: 460px;
+  max-height: 460px;
+  overflow: auto;
+}
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  p {
+    width: 50%;
+    margin-bottom: 0;
+    font-size: 13px;
+    span {
+      font-weight: 500;
+    }
+  }
+}
+
+.update {
+  flex-direction: column;
+  max-height: 530px;
+}

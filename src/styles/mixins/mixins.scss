@@ -1,0 +1,23 @@
+@import "../variables/variables.scss";
+
+@mixin background-material-card {
+  border-radius: 5px;
+  box-shadow: 2px 2px 8px 0px rgba(217, 217, 217, 1);
+  padding: 10px;
+}
+
+@mixin background-card-square {
+  box-shadow: 2px 2px 8px 0px rgba(217, 217, 217, 1);
+  padding: 10px;
+}
+
+@mixin circle-button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0px 2px 5px -1px rgba(168, 168, 168, 1);
+}
+
+@mixin flexContainer {
+  display: flex;
+}

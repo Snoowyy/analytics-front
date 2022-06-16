@@ -1,0 +1,132 @@
+<div class="panelContainer" [ngClass]="{'active': isVisiblePanelNotifications}">
+
+    <div id="togglePanelNotifications" class="panelContainer__toggle" (click)="togglePanelNotifications()">
+        <div class="icon fa fa-bell" aria-hidden="true"></div>
+    </div>
+
+    <div class="panelContainer__toolbar">
+        <div class="toolbarHead">
+            <div class="toolbarHead__title">Análisis</div>
+            <div class="toolbarHead__number">{{insightLength}}</div>
+        </div>
+
+        <div class="toolbarTools fadeIn fast" [ngClass]="{'active': isSelectingActive}" kendoTooltip>
+            <button class="btn btn-dark"
+                title="Archivar"
+                id="btnToggleDialogArchive"
+                (click)="toggleDialogArchive(true)">
+                <i class="fa fa-folder-open" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-dark"
+                title="Enviar"
+                id="btnToggleDialogSendEmail"
+                (click)="toggleDialogSendEmail(true)">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-dark"
+                title="Eliminar"
+                id="btnToggleDialogDelete"
+                (click)="toggleDialogDelete(true)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="panelContainer__notifications">
+        <div class="message" [ngClass]="{'message-on': !hasResults }">
+            <p>No hay notificaciones</p>
+        </div>
+
+        <kendo-panelbar>
+            <kendo-panelbar-item title="" *ngFor="let notification of notifications">
+                <ng-template kendoPanelBarItemTitle>
+                    <div class="notificationsHead">
+                        <span class="notificationsHead__title">{{notification.insights_type}}</span>
+                        <span class="notificationsHead__number">{{notification.insights.length}}</span>
+                    </div>
+                </ng-template>
+                <ng-template kendoPanelBarContent>
+                    <ul class="list">
+                        <li class="list__analysis" *ngFor="let insight of notification?.insights">
+                            <div class="check">
+                                <input class="k-checkbox"
+                                    type="checkbox"
+                                    id="ch{{insight.id}}"
+                                    [(ngModel)]="insight.checked"
+                                    (change)="toggleCheckInsight()"/>
+                                <label class="k-checkbox-label" for="ch{{insight.id}}"></label>
+                            </div>
+                            <div class="text" [innerHTML]="insight.message"></div>
+                            <hr>
+                        </li>
+                    </ul>
+                </ng-template>
+            </kendo-panelbar-item>
+        </kendo-panelbar>
+    </div>
+
+    <div class="panelContainer__footer"></div>
+</div>
+
+<ng-template #archivar>Su selección ha sido archivada</ng-template>
+
+<ng-template #enviar>Su selección ha sido enviada</ng-template>
+
+<ng-template #deshacer>La selección ha sido eliminada | <a href="">Deshacer</a></ng-template>
+<kendo-dialog
+    title="Enviar análisis por correo"
+    class="dialog"
+    *ngIf="isActiveDialogEmail"
+    (close)="toggleDialogSendEmail()">
+    <form  [formGroup]="formSendEmail"
+        class="k-form"
+        id="formSendEmail"
+        (ngSubmit)="confirmationDialogSendEmail()">
+        <label class="k-form-field">
+            <span>Correo electronico <span class="k-required">*</span></span>
+            <input type="email"
+                formControlName="recipients"
+                class="k-textbox"
+                placeholder="Ej: destinatario@email.com" />
+        </label>
+        <label class="k-form-field">
+            <span>Notas<span class="k-required">*</span></span>
+            <textarea class="k-textarea"
+                formControlName="note"
+                placeholder="Ingrese los comentarios que desea enviar sobre la selección">
+            </textarea>
+        </label>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="toggleDialogSendEmail()">Descartar</button>
+            <button kendoButton  type="submit" primary="true">Enviar</button>
+        </kendo-dialog-actions>
+    </form>
+</kendo-dialog>
+
+<kendo-dialog
+    title="Archivar Análisis"
+    class="dialog"
+    *ngIf="isActiveDialogArchive"
+    (close)="toggleDialogArchive()">
+    <form class="k-form">
+        <div class="textDialog">Los análisis seleccionados se archivarán</div>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="toggleDialogArchive()">Descartar</button>
+            <button kendoButton (click)="confirmationDialogArchive()" primary="true">Archivar</button>
+        </kendo-dialog-actions>
+    </form>
+</kendo-dialog>
+
+<kendo-dialog
+    title="Eliminar Análisis"
+    class="dialog"
+    *ngIf="isActiveDialogDelete"
+    (close)="toggleDialogDelete()">
+    <form class="k-form">
+        <div class="textDialog">Los análisis seleccionados se eliminarán</div>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="toggleDialogDelete()">Descartar</button>
+            <button kendoButton (click)="confirmationDialogDelete()" primary="true">Eliminar</button>
+        </kendo-dialog-actions>
+    </form>
+</kendo-dialog>

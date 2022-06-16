@@ -1,0 +1,116 @@
+@import "../../../../../styles/styles.scss";
+
+.toggleButtonFilterBar {
+  position: fixed;
+  top: 65px;
+  left: 80px;
+  z-index: 5;
+  @include circle-button;
+  background-color: $yellow-regular;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: fadeIn ease 1s;
+  cursor: pointer;
+  transition: 0.4s;
+  &--hide {
+    background-image: url(src/assets/images/up-arrown-button.png);
+    opacity: 0.5;
+  }
+  &--visible {
+    background-image: url(src/assets/images/up-arrown-button.png);
+  }
+}
+
+.filterBar {
+  @include background-material-card;
+  @include flexContainer;
+  justify-content: space-between;
+  background-color: $white;
+  position: fixed;
+  z-index: 4;
+  left: 70px;
+  right: 70px;
+  top: -300px;
+  transition: 0.4s;
+  padding: 0;
+  &__daterange {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    &--start {
+      width: 120px;
+    }
+    &--end {
+      width: 120px;
+      margin-left: 12px;
+    }
+    .icon {
+      margin: 0 7px 0 50px;
+      color: #838383;
+      font-size: 18px;
+    }
+    /deep/ input {
+      font-size: 15px;
+      color: #838383;
+    }
+  }
+  &__periodicity {
+    padding: 10px;
+    width: 115px;
+    /deep/ .k-dropdown-wrap > .k-input {
+      height: 34.5px;
+      font-size: 15px;
+      color: #838383;
+    }
+  }
+  &__multiselect {
+    width: calc(100% - 480px);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    &__input {
+      width: 100%;
+    }
+    .icon {
+      color: #838383;
+      font-size: 18px;
+      margin-right: 7px;
+    }
+    cvn-multiselect-filter {
+      width: 100%;
+    }
+    /deep/ kendo-multiselect {
+      font-size: 15px;
+    }
+  }
+  &.active {
+    top: 57px;
+    animation: fadeIn ease 1s;
+  }
+}
+
+.btnApply {
+  background: #cfd4ed;
+  height: 40px;
+  border: 0;
+  color: #3f51b5;
+  margin-bottom: 0;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  display: block;
+  transition: 0.4s;
+  &:hover {
+    background: #3f51b5;
+    color: white;
+  }
+}
+
+::placeholder {
+  color: #838383;
+  font-size: 18px;
+}
+
+.tooltip {
+  background: orange !important;
+}

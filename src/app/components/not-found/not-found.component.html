@@ -1,0 +1,31 @@
+<div class="wrap">
+  <div class="wrapper">
+    <div class="wrapper__image">
+      <img src="{{constantsErrors.image}}">
+    </div>
+    <div class="wrapper__text">
+      <div class="codeError">
+        {{constantsErrors.StatusCode}}
+      </div>
+      <div class="title">
+        {{constantsErrors.title}}
+      </div>
+      <div class="message">
+        {{constantsErrors.message}}
+      </div>
+      <div *ngIf="loggedState$ | async as loggedState ; else linkHome">
+        <div class="action" *ngIf="loggedState">
+          <a class="button btn btn-secondary" [routerLink]="['/select']"><i class="fa fa-th-large"
+              aria-hidden="true"></i> MODULOS </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #linkHome>
+  <div class="action">
+    <a class="button btn btn-primary" [routerLink]="['/home']"><i class="fa fa-home" aria-hidden="true"></i> HOME
+    </a>
+  </div>
+</ng-template>

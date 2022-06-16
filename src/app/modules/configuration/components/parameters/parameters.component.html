@@ -1,0 +1,129 @@
+<div class="box configuration">
+  <div class="wrapper">
+    <div class="box__title">Parametrización</div>
+    <p>Plantillas de Maestros</p>
+    <ul class="templates">
+      <li>
+        <a class="btn"
+           href="/api/cvn/media/templates/template_master_products.xlsx"
+           target="_self">
+          Plantilla Producto
+        </a>
+      </li>
+      <li>
+        <a class="btn"
+           href="/api/cvn/media/templates/template_master_point_of_sales.xlsx"
+           target="_self">
+          Plantilla Punto de Venta
+        </a>
+      </li>
+    </ul>
+    <ul>
+      <li *ngFor="let item of masters; index as index">
+        <form [formGroup]="importForm"
+              novalidate
+              (ngSubmit)="uploadFile(item)">
+          <p>{{item.name}}</p>
+          <div class="content-btn-and-modal">
+            <div class="container-upload-and-error">
+              <kendo-upload required
+                            #upload
+                            formControlName="file"
+                            ngDefaultControl
+                            [multiple]="false"
+                            [autoUpload]="false"
+                            [saveUrl]="uploadSaveUrl"
+                            [removeUrl]="uploadRemoveUrl"
+                            [restrictions]="filerestriction"
+                            (select)="selectEventHandler($event, item)"
+                            (remove)="cancelUploadFile($event, item, index)"
+                            (upload)="validateFile($event, item, index)">
+                <kendo-upload-messages select="Importar"
+                                       uploadSelectedFiles="Validar Archivo">
+                </kendo-upload-messages>
+              </kendo-upload>
+              <div class="alertUpload"
+                   *ngIf="item.errors.length > 0">
+                <ng-container *ngFor="let error of item.errors">
+                  <small [innerHTML]="error">
+                  </small>
+                </ng-container>
+              </div>
+              <div *ngIf="item.success">
+                <small class="alerUpload__text_success">
+                  Archivo subido correctamente
+                </small>
+              </div>
+            </div>
+            <div class="modal-btn">
+              <button
+                      kendoButton
+                      type="button"
+                      (click)="toggleFormWindow(item.state)">
+                <i class="fa fa-plus-square-o" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <button kendoButton
+                  *ngIf="showBtnUpload(item)"
+                  type="submit">
+            Subir archivo
+          </button>
+        </form>
+      </li>
+    </ul>
+
+    <div class="box__title" *ngxPermissionsOnly="['Administrator']">Ver Parametros</div>
+
+    <div class="box__parameters" *ngxPermissionsOnly="['Administrator']">
+      <div class="option">
+        <p>Impuesto</p>
+        <kendo-switch [(ngModel)]="checkedImpuestos" ngDefaultControl></kendo-switch>
+      </div>
+      <div class="option">
+        <p>Margen</p>
+        <kendo-switch [(ngModel)]="checkedMargen" ngDefaultControl></kendo-switch>
+      </div>
+    </div>
+  </div>
+</div>
+
+<kendo-window *ngIf="isActiveProductFormWindow"
+              title="Maestro de producto"
+              (close)="toggleFormWindow('isActiveProductFormWindow')"
+              [minWidth]="250"
+              [height]="550"
+              [width]="450">
+  <cvn-product-form
+    (submit)="submitForm($event)"
+    (close)="toggleFormWindow($event)">
+  </cvn-product-form>
+</kendo-window>
+
+<kendo-window *ngIf="isActivePointSaleFormWindow"
+              title="Maestro de punto de venta"
+              (close)="toggleFormWindow('isActivePointSaleFormWindow')"
+              [minWidth]="250"
+              [height]="550"
+              [width]="450">
+  <cvn-pointsale-form
+    (submit)="submitForm($event)"
+    (close)="toggleFormWindow($event)">
+  </cvn-pointsale-form>
+</kendo-window>
+
+<kendo-window *ngIf="isActiveTaxFormWindow"
+              title="Impuesto"
+              (close)="toggleFormWindow('isActiveTaxFormWindow')"
+              [minWidth]="250"
+              [width]="450">
+  <cvn-tax-form (close)="toggleFormWindow($event)"></cvn-tax-form>
+</kendo-window>
+
+<kendo-window *ngIf="isActiveMarginFormWindow"
+              title="Margen"
+              (close)="toggleFormWindow('isActiveMarginFormWindow')"
+              [minWidth]="250"
+              [width]="450">
+  <cvn-margin-form (close)="toggleFormWindow($event)"></cvn-margin-form>
+</kendo-window>

@@ -1,0 +1,9 @@
+<div class="titletop">
+  <div class="titletop__title">{{title}}</div>
+  <div class="titletop__message" *ngIf="renderValue">Elasticidad del {{renderValue}}%</div>
+  <button class=" btn btn-warning"
+    id="btnAnalysis"
+    (click)="showGraphicAnalysis()">
+    <span>ANÁLISIS</span>
+  </button>
+</div>

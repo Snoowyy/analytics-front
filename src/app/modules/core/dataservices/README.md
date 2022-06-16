@@ -1,0 +1,1 @@
+Esta carpeta deberá desaparecer, pues el estado se maneja de forma coherente con Akita. La convensión con Akita es tener el estado, servicios y demás bajo la misma carpeta. Refactorizar lo que quede en esta carpeta para seguir esa convención.

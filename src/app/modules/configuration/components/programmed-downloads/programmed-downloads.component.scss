@@ -1,0 +1,54 @@
+.wrapper {
+  .box {
+    form {
+      align-items: center;
+      justify-content: space-between;
+      display: flex;
+      width: 100%;
+      margin-bottom: 0;
+      .autocomplete {
+        width: calc(100% - 560px);
+        .k-input {
+          font-size: 15px;
+          color: #838383;
+        }
+      }
+      .dropdown {
+        padding: 10px;
+        .k-dropdown-wrap > .k-input {
+          height: 34.5px;
+          font-size: 15px;
+          color: #838383;
+        }
+      }
+      .glnretailer {
+        text-align: center;
+      }
+      .btn {
+        margin-bottom: 0;
+        &__content {
+          opacity: 1;
+          transition: .4s;
+          &-disabled {
+            opacity: 0;
+          }
+        }
+        .loadingBox {
+          font-size: 8px;
+        }
+      }
+    }
+    .frequency {
+      width: 150px;
+      text-align: center;
+    }
+    .execution {
+      width: 150px;
+      text-align: center;
+    }
+    .remove {
+      width: 90px;
+      text-align: center;
+    }
+  }
+}

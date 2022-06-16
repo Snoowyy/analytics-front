@@ -1,0 +1,23 @@
+.wrapper {
+  height: 100%;
+  .box {
+    height: calc(50% - 5px);
+    position: relative;
+    &:first-child {
+      margin-bottom: 10px;
+    }
+    &__data, .message__variation {
+      opacity: 0;
+      transition: 0.4s;
+    }
+    &-active {
+      .box__data, .message__variation {
+        opacity: 1;
+      }
+    }
+  }
+  .message__variation {
+    text-align: center;
+    font-size: 15px;
+  }
+}

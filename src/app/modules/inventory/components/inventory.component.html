@@ -1,0 +1,74 @@
+<router-outlet></router-outlet>
+<app-nav [routes]="routes"></app-nav>
+<cvn-panel-notifications [notifications]="notifications$ | async"></cvn-panel-notifications>
+
+<cvn-bar-filters #filterBar
+  [filters]="filters$ | async"
+  (filterSelection)="getAllDataGraphs()"
+  (periodicitySelected)="getDataGraphsByTimeSeries()">
+</cvn-bar-filters>
+
+<div class="wrap u__padWrap u__top110">
+  <div class="wrapper__boxes W__28">
+    <cvn-inventory-data
+      [data]="inventoryData$ | async"
+      [isLoading]="(loadingInventoryData$ | async) || (isLoadingAll$ | async)">
+    </cvn-inventory-data>
+  </div>
+
+  <div class="u__w70">
+    <div class="wrapper__graphics u__mbottom10">
+      <cvn-inventory-days
+        (changePinState)="changePinState($event)"
+        [pinned]="pinned$ | async"
+        [filters]="currentFilters"
+        [id]="'inventory-days-by-client'"
+        [isHeightAuto]="false"
+        [graphData]="inventoryDaysByClient$ | async"
+        [isLoading]="(loadingInventoryDaysByClient$ | async) || (isLoadingAll$ | async)"
+        [title]="'DÍAS DE INVENTARIO POR CLIENTE'">
+      </cvn-inventory-days>
+    </div>
+    <div class="wrapper__graphics">
+      <cvn-inventory-days
+        (changePinState)="changePinState($event)"
+        [pinned]="pinned$ | async"
+        [filters]="currentFilters"
+        [id]="'inventory-days-by-category'"
+        [isHeightAuto]="false"
+        [graphData]="inventoryDaysByCategory$ | async"
+        [isLoading]="(loadingInventoryDaysByCategory$ | async) || (isLoadingAll$ | async)"
+        [title]="'DÍAS DE INVENTARIO POR CATEGORÍA'">
+      </cvn-inventory-days>
+    </div>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-inventory-days class="points"
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'inventory-days-by-pointssale'"
+      [isHeightAuto]="true"
+      [graphData]="inventoryDaysByPointsSale$ | async"
+      [isLoading]="(loadingInventoryDaysByPointsSale$ | async) || (isLoadingAll$ | async)"
+      [title]="'DÍAS DE INVENTARIO POR PUNTO DE VENTA'">
+    </cvn-inventory-days>
+  </div>
+</div>
+
+<div class="u__padWrap u__mbottom">
+  <div class="wrapper__graphics">
+    <cvn-vs-compare-time-series
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'inventory-days-vs-sales'"
+      [graphData]="salesVsDaysInventory$ | async"
+      [isLoading]="(loadingSalesVsDaysInventory$ | async) || (isLoadingAll$ | async)"
+      title="VENTAS VS DÍAS DE INVENTARIO {{this.currentPeriodicitySelected | dictionary}}">
+    </cvn-vs-compare-time-series>
+  </div>
+</div>

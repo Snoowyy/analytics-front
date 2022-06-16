@@ -1,0 +1,72 @@
+<cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+
+<div class="message" [ngClass]="{'message-on': showNoResultsMessage }">
+  <p>No hay resultados para el rango de fechas actual</p>
+</div>
+
+<cvn-graphic-title [title]="title"></cvn-graphic-title>
+
+<kendo-chart [categoryAxis]="{ labels: { rotation: '-45', step: rangeValuesAxisX }}">
+  <kendo-chart-series>
+    <kendo-chart-series-item
+      [data]="graphData"
+      type="boxPlot"
+      lowerField="lower"
+      q1Field="q1"
+      medianField="median"
+      q3Field="q3"
+      upperField="upper"
+      outliersField="outliers"
+      meanField="mean"
+      categoryField="date">
+    </kendo-chart-series-item>
+  </kendo-chart-series>
+
+  <kendo-chart-value-axis>
+    <kendo-chart-value-axis-item [labels]="{ format: ' 0,0' }">
+      <kendo-chart-value-axis-item-title [position]="graphConfig.labelXPosition" text="Unidades" [color]="graphConfig.labelColor">
+      </kendo-chart-value-axis-item-title>
+    </kendo-chart-value-axis-item>
+  </kendo-chart-value-axis>
+</kendo-chart>
+
+<div class="fixedGraphic">
+  <div class="fixedGraphic__convention">
+    <div class="convention" *ngFor="let item of conventions">
+      <div class="convention__item">
+        <img src="assets/images/{{item.img}}"> </div>
+      <div class="convention__text">
+        {{item.name}}
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn exportExcel"
+      kendoTooltip
+      position="left"
+      title="Exportar a excel"
+      [ngClass]="{'on': graphDataExcel && !isLoading}"
+      (click)="excelexport.save()">
+      <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+    </button>
+
+    <cvn-graphic-pin class="optionGraphic"
+      [ngClass]="{'on': !isLoading}"
+      [state]="isPinned"
+      [pinned]="pinned"
+      [id]="id"
+      (click)="toggleFixPinGraphic()">
+    </cvn-graphic-pin>
+  </div>
+</div>
+
+<kendo-excelexport [data]="graphData" fileName="{{id}}.xlsx" #excelexport>
+  <kendo-excelexport-column field="date" title="Fecha" [width]="80"></kendo-excelexport-column>
+  <kendo-excelexport-column field="lower" title="Valor minimo" [width]="100"></kendo-excelexport-column>
+  <kendo-excelexport-column field="upper" title="Valor maximo" [width]="100"></kendo-excelexport-column>
+  <kendo-excelexport-column field="mean" title="Media" [width]="100"></kendo-excelexport-column>
+  <kendo-excelexport-column field="median" title="Mediana" [width]="100"></kendo-excelexport-column>
+  <kendo-excelexport-column field="q1" title="Rango 25%" [width]="40"></kendo-excelexport-column>
+  <kendo-excelexport-column field="q3" title="Rango 75%" [width]="40"></kendo-excelexport-column>
+</kendo-excelexport>

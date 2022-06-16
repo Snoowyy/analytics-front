@@ -1,0 +1,24 @@
+<form class="k-form" [formGroup]="taxForm" (ngSubmit)="saveTax()">
+  <fieldset>
+    <label class="k-form-field">
+      <span>GTIN</span>
+      <input class="k-textbox"
+      formControlName="gtin"
+      placeholder="Código de barras del producto" />
+    </label>
+    <label class="k-form-field">
+      <span>Impuesto</span>
+      <input class="k-textbox"
+      formControlName="name"
+      placeholder="Ej: 1%" />
+    </label>
+  </fieldset>
+  <div class="text-right">
+    <button type="button" id="cancelForm" class="k-button" (click)="emitClose()">
+      Cancelar
+    </button>
+    <button type="submit" class="k-button k-primary">
+      Subir
+    </button>
+  </div>
+</form>

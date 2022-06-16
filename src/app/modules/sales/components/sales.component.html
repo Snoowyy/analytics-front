@@ -1,0 +1,112 @@
+<router-outlet></router-outlet>
+<app-nav [routes]="routes"></app-nav>
+<cvn-panel-notifications [notifications]="notifications$ | async"></cvn-panel-notifications>
+
+<cvn-bar-filters #filterBar
+  [filters]="filters$ | async"
+  (filterSelection)="getAllDataGraphs()"
+  (periodicitySelected)="getDataGraphsByTimeSeries()">
+</cvn-bar-filters>
+
+<div class="wrap u__padWrap u__top110">
+  <div class="wrapper__boxes W__28">
+    <cvn-total-sales
+      [totalSales]="totalSales$ | async"
+      [isLoading]="(loadingTotalSales$ | async) || (isLoadingAll$ | async)">
+    </cvn-total-sales>
+  </div>
+  <div class="wrapper__graphics w__34">
+    <cvn-sales-by
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-by-client'"
+      [graphData]="salesByClient$ | async"
+      [isLoading]="(loadingSalesByClient$ | async) || (isLoadingAll$ | async)"
+      [title]="'Ventas por Cliente'">
+    </cvn-sales-by>
+  </div>
+  <div class="wrapper__graphics w__34">
+    <cvn-sales-by
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-by-category'"
+      [graphData]="salesByCategory$ | async"
+      [isLoading]="(loadingSalesByCategory$ | async) || (isLoadingAll$ | async)"
+      [title]="'Ventas por Categoría'"
+      (changeLevel)="setBusinessLevelsToParams($event)">
+    </cvn-sales-by>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-sales-by-time-series
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-by-client-ts'"
+      [graphData]="salesByTimeSeries$ | async"
+      [isLoading]="(loadingSalesByTimeSeries$ | async) || (isLoadingAll$ | async)"
+      title="VENTA {{this.currentPeriodicitySelected | dictionary}} EN COP POR CLIENTE">
+    </cvn-sales-by-time-series>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-sales-behavior
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-by-category-bar'"
+      [graphData]="salesBehavior$ | async"
+      [isLoading]="(loadingSalesBehavior$ | async) || (isLoadingAll$ | async)"
+      (changeLevel)="setBusinessLevelsToParams($event)"
+      title="COMPORTAMIENTO DE VENTAS POR NIVEL">
+    </cvn-sales-behavior>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-sales-ranking
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-pointssale-rank'"
+      [graphData]="rankingPointsSale$ | async"
+      [isLoading]="(loadingRankingPointsSale$ | async) || (isLoadingAll$ | async)"
+      title="RANKING DE VENTAS PUNTOS DE VENTA">
+    </cvn-sales-ranking>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-sales-ranking
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-products-rank'"
+      [graphData]="salesRanking$ | async"
+      [isLoading]="(loadingSalesRanking$ | async) || (isLoadingAll$ | async)"
+      title="RANKING DE VENTAS PRODUCTOS">
+    </cvn-sales-ranking>
+  </div>
+</div>
+
+<div class="u__padWrap u__mbottom">
+  <div class="wrapper__graphics">
+    <cvn-price-sensitivity-time-series
+      (changePinState)="changePinState($event)"
+      [pinned]="pinned$ | async"
+      [filters]="currentFilters"
+      [id]="'sales-price-sensitivity'"
+      [graphData]="priceSensitivityTimeSeries$ | async"
+      [isLoading]="(loadingPriceSensitivityTimeSeries$ | async) || (isLoadingAll$ | async)"
+      title="ELASTICIDAD DE PRECIO {{this.currentPeriodicitySelected | dictionary}}">
+    </cvn-price-sensitivity-time-series>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <div class="box u__bg--yellow-regular"  [ngClass]="{'box-active': !isLoading}">
+    <cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+    <div class="box__title">Ventas Totales</div>
+    <div class="box__data total">$ {{(totalSales.total) | number }} COP</div>
+    <div class="box__data qty">{{totalSales.qty | number}} Unidades</div>
+  </div>
+
+  <div class="box u__bg--yellow-regular" [ngClass]="{'box-active': !isLoading}">
+    <cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+    <div class="box__title">Variación</div>
+    <div *ngIf="variation">
+      <div class="box__data ytd" *ngIf="totalSales['variation-ytd']">
+        {{ totalSales['variation-ytd'] | number: '1.0-2' }}% YTD
+      </div>
+      <p class="message__variation ytd" *ngIf="!totalSales['variation-ytd']">
+        no hay datos suficientes para mostrar la variación anual
+      </p>
+      <div class="box__legend">(YTD: Year To Date)</div>
+
+      <div class="box__data mtd" *ngIf="totalSales['variation-mtd']">
+        {{ totalSales['variation-mtd'] | number: '1.0-2' }}% MTD
+      </div>
+      <p class="message__variation mtd" *ngIf="!totalSales['variation-mtd']">
+        no hay datos suficientes para mostrar la variación mensual
+      </p>
+      <div class="box__legend">(MTD: Month To Date)</div>
+    </div>
+  </div>
+</div>

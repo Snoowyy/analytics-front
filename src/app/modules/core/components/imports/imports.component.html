@@ -1,0 +1,221 @@
+<app-nav [routes]="routes"></app-nav>
+
+<ng-container *ngIf="useBulkValidation; else NoBulk">
+  <div class="wrap u__padWrap" *ngIf="step === 1">
+    <div class="wrapButton">
+      <div class="col-md-12">
+        <div class="wizard">
+          <div class="step-title">Paso 1.</div>
+          <div class="step-text">Seleccionar el tipo de información que se procesará</div>
+        </div>
+        <div class="k-form-field" style="text-align: center; justify-content: center;">
+          <div class="k-form-field">
+
+            <input type="radio" name="nobulk" [(ngModel)]="uploadedFile.isbulk" value="nobulk" id="normalOption" class="k-radio"
+              (change)="choose($event)">
+            <label class="k-radio-label" for="normalOption">Normal</label>
+
+            <input type="radio" name="bulk" [(ngModel)]="uploadedFile.isbulk" value="bulk" id="bulkOption" class="k-radio"
+              (change)="choose($event)">
+            <label class="k-radio-label" for="bulkOption">Al Granel</label>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="wizard">
+          <div class="step-title">Paso 2.</div>
+          <div class="step-text">Seleccionar el archivo que desea sea procesado</div>
+        </div>
+        <form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+          <div class="col-md-12 row">
+            <div class="wrapper__import col-md-12">
+              <kendo-upload required name="file" [autoUpload]="false" [saveUrl]="uploadSaveUrl"
+                [removeUrl]="uploadRemoveUrl" [restrictions]="filerestriction" [(ngModel)]="uploadedFile.file"
+                (select)="selectEventHandler($event)" (upload)="uploadEventHandler($event)">
+                <kendo-upload-messages select="Por favor seleccione el archivo con los datos a importar"
+                  uploadSelectedFiles="Validar Archivo" clearSelectedFiles="Anular la selección">
+                </kendo-upload-messages>
+              </kendo-upload>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="validationResult$ | async as validationResult">
+  <div *ngIf="step === 2">
+    <div class="wrap u__padWrap">
+      <div class="wrapButton">
+        <div class="col-md-12">
+          <div class="wizard">
+            <div class="step-title">Paso 2.</div>
+            <div class="step-text">Resultados de la validación del contenido del (Validación de filas y columnas)</div>
+          </div>
+          <div>
+            <button class="btn btn-lightblue prev-button" (click)="prevButton()"><i class="fa fa-arrow-left"></i>
+              Anterior
+              paso </button>
+            <button class="btn btn-lightblue next-button" (click)="nextButton()">Siguiente <i
+                class="fa fa-arrow-right"></i></button>
+          </div>
+          <kendo-tabstrip [tabAlignment]="'center'">
+            <kendo-tabstrip-tab [title]="'Validación de columnas'" [selected]="true">
+              <ng-template kendoTabContent>
+                <div class="detail">
+                  <kendo-grid [data]="validationResult.columnValidationResult" [sortable]="true">
+                    <kendo-grid-column field="column" title="Campo" [filterable]="false">
+                    </kendo-grid-column>
+                    <kendo-grid-column field="statement" title="Estatus" [filterable]="false">
+                      <ng-template kendoGridCellTemplate let-dataItem>
+                        <i *ngIf="dataItem.statement == 2" class="iconWarning fa fa-exclamation-circle"
+                          aria-hidden="true"></i>
+                        <i *ngIf="dataItem.statement == 1" class="iconSuccess fa fa-check-circle"
+                          aria-hidden="true"></i>
+                        <i *ngIf="dataItem.statement == 0" class="iconDanger fa fa-times-circle" aria-hidden="true"></i>
+                      </ng-template>
+                    </kendo-grid-column>
+                  </kendo-grid>
+                </div>
+              </ng-template>
+            </kendo-tabstrip-tab>
+            <kendo-tabstrip-tab [title]="'Validación de filas'">
+              <ng-template kendoTabContent>
+                <div class="detail">
+                  <kendo-grid [data]="validationResult.rowValidationResult.rows">
+                    <ng-template ngFor [ngForOf]="validationResult.rowValidationResult.keys" let-column>
+
+                      <kendo-grid-column field="{{column}}" *ngIf="column !== 'row'" width="200"></kendo-grid-column>
+                      <kendo-grid-column field="{{column}}" *ngIf="column === 'row'" width="80"></kendo-grid-column>
+                    </ng-template>
+                  </kendo-grid>
+                </div>
+              </ng-template>
+            </kendo-tabstrip-tab>
+
+          </kendo-tabstrip>
+          <div>
+            <button class="btn btn-lightblue prev-button" (click)="prevButton()"><i class="fa fa-arrow-left"></i>
+              Anterior
+              paso </button>
+            <button class="btn btn-lightblue next-button" (click)="nextButton()">Siguiente <i
+                class="fa fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step === 3">
+    <div class="wrap u__padWrap">
+      <div class="wrapButton">
+        <div class="col-md-12">
+          <div class="wizard">
+            <div class="step-title">Paso 3.</div>
+            <div class="step-text">Resultados general de la validación del archivo (Si esta validación no cumple con los
+              requerimientos
+              mínimos no se procederá al paso 3)</div>
+          </div>
+          <div class="status">
+            <kendo-grid [data]="validationResult.generalValidationResult" [sortable]="true" *ngIf="loading !== 2">
+              <kendo-grid-column field="is_all_correct" title="Formato de archivo" [filterable]="false" width="140">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                  <div *ngIf="dataItem.is_all_correct==2" class="iconWarning">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> <small> CORRECTO</small>
+                  </div>
+                  <div *ngIf="dataItem.is_all_correct==1" class="iconSuccess">
+                    <i class="fa fa-check-circle" aria-hidden="true"></i> <small> PARCIALMENTE CORRECTO</small>
+                  </div>
+                  <div *ngIf="dataItem.is_all_correct == 0" class="iconDanger">
+                    <i class="fa fa-times-circle" aria-hidden="true"></i> <small> INCORRECTO</small>
+                  </div>
+                </ng-template>
+              </kendo-grid-column>
+              <kendo-grid-column field="expected_number_col" title="Col. esperadas" width="80">
+              </kendo-grid-column>
+              <kendo-grid-column field="real_number_col" title="Col. procesadas" width="100">
+              </kendo-grid-column>
+            </kendo-grid>
+            <ng-container *ngIf="loading === 0; else DataReady" >
+              <button class="btn btn-green-regular btn-block" *ngIf="(validationResult.isValid.valid); else InvalidData"
+                (click)="confirm(validationResult.isValid.id)">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i> Importar
+                datos desde excel
+              </button>
+            </ng-container>
+
+          </div>
+          <div>
+            <button class="btn btn-lightblue prev-button" (click)="prevButton()"><i class="fa fa-arrow-left"></i>
+              Anterior</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #InvalidData>
+  <div class="wizzard">
+    <div class="text-center text-danger">
+      <div class="step-title">Lo sentimos!</div>
+      <div class="step-text">
+        Parece que el archivo que has subido no cumple con los requerimientos mínimos necesarios para
+        realizar la exportación, intenta con otro archivo...
+        <button class="btn btn-red" (click)="resetButton()">
+          Volver al principio
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #DataReady>
+  <div class="wizzard" *ngIf="loading === 2; else Loading" >
+    <div class="text-center text-success">
+      <div class="step-title">Proceso Exitoso!</div>
+      <div class="step-text">
+        Agradecemos que hayas completado satisfactoriamente el proceso de carga de viajes...
+        <button class="btn btn-green-regular" (click)="resetButton()">
+          Volver al principio
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #Loading>
+  <div class="bg-graphics-no-shadow">
+    <cvn-loading-box></cvn-loading-box>
+  </div>
+</ng-template>
+
+<ng-template #NoBulk>
+  <div class="wrap u__padWrap" *ngIf="step === 1">
+    <div class="wrapButton">
+      <div class="col-md-12">
+        <div class="wizard">
+          <div class="step-title">Paso 1.</div>
+          <div class="step-text">Seleccionar el archivo que desea sea procesado</div>
+        </div>
+        <form #f="ngForm" novalidate (ngSubmit)="onSubmit(f)">
+          <div class="col-md-12 row">
+            <div class="wrapper__import col-md-12">
+              <kendo-upload required name="file" [autoUpload]="false" [saveUrl]="uploadSaveUrl"
+                [removeUrl]="uploadRemoveUrl" [restrictions]="filerestriction" [(ngModel)]="uploadedFile.file"
+                (select)="selectEventHandler($event)" (upload)="uploadEventHandler($event)">
+                <kendo-upload-messages select="Por favor seleccione el archivo con los datos a importar"
+                  uploadSelectedFiles="Validar Archivo" clearSelectedFiles="Anular la selección">
+                </kendo-upload-messages>
+              </kendo-upload>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+

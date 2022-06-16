@@ -1,0 +1,112 @@
+@import "../../../../styles/global/utilities.scss";
+
+.content {
+  .box {
+    height: 100%;
+    background: white;
+    &__title {
+      text-transform: uppercase;
+      font-weight: 700;
+      width: 100%;
+      text-align: left;
+      border-bottom: 1px solid #929292;
+      margin: 0 0 10px 0;
+    }
+    &__parameters {
+      width: 100%;
+    }
+  }
+  .not-insights {
+    position: relative;
+    width: 100%;
+    min-height: 16px;
+    .message {
+      padding: 0 18px;
+    }
+  }
+  .insights {
+    position: relative;
+    width: 100%;
+    .k-panelbar {
+      border: 0;
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: start;
+      > .k-item {
+        width: 49.4%;
+        background: #fff1b8;
+        border: 0;
+        > .k-link.k-state-focused {
+          background-color: #fff1b8;
+        }
+      }
+    }
+    .notificationsHead {
+      display: flex;
+      width: 94%;
+      justify-content: space-between;
+      &__title {
+        font-weight: 900;
+        margin-right: 5px;
+      }
+      &__number {
+        background: $red-regular;
+        color: white;
+        font-weight: 700;
+        font-size: 10px;
+        border-radius: 50%;
+        text-align: center;
+        padding: 2px;
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .list {
+      margin: 0;
+      padding: 10px;
+      list-style: none;
+      border: 1px solid #fff1b8;
+      border-radius: 0 0 4px 4px;
+      &__analysis {
+        display: flex;
+        border-bottom: 1px solid #eeeeee;
+        position: relative;
+        &:last-child {
+          border-bottom: 0;
+        }
+        &:hover {
+          .check {
+            opacity: 1;
+          }
+        }
+        .check {
+          padding-top: 13px;
+          transition: 0.4s;
+          .k-checkbox:checked + .k-checkbox-label::after,
+          .k-checkbox:indeterminate + .k-checkbox-label::after {
+            background-color: $yellow-regular !important;
+          }
+          .k-checkbox-label::before {
+            border: 1px solid rgb(77, 77, 77) !important;
+          }
+        }
+        .text {
+          padding: 10px 5px;
+        }
+        .remove {
+          position: absolute;
+          top: 0;
+          right: 0;
+          i {
+            color: rgba(77, 77, 77, 1);
+            cursor: pointer;
+            font-size: 19px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<div class="toggleButtonFilterBar"
+  id="toggleVisibilityFilterBar"
+  [class.toggleButtonFilterBar--visible]="isVisibleFilterBar"
+  [class.toggleButtonFilterBar--hide]="!isVisibleFilterBar"
+  (click)="toggleVisibilityFilterBar()">
+</div>
+
+<div class="filterBar" [ngClass]="{'active' : isVisibleFilterBar}">
+  <div class="filterBar__daterange"
+    (keydown)="onKeydown($event)"
+    kendoTooltip
+    position="bottom"
+    title="rango de fechas">
+    <div class="fa fa-calendar-o icon"></div>
+    <kendo-daterange #daterange>
+      <kendo-daterange-popup #popup [animate]="animate">
+        <ng-template kendoDateRangePopupTemplate>
+          <kendo-multiviewcalendar kendoDateRangeSelection
+            [focusedDate]="range.start || range.end"
+            [max]="today"
+            (keydown)="onKeydown($event)">
+            <kendo-multiviewcalendar-messages today="Hoy"></kendo-multiviewcalendar-messages>
+          </kendo-multiviewcalendar>
+          <button class="btnApply"
+            id="applyRangeFilter"
+            (click)="emitFiltersSelected()">Aplicar
+          </button>
+        </ng-template>
+      </kendo-daterange-popup>
+
+      <kendo-dateinput class="filterBar__daterange--start"
+        placeholder="Fecha inicio"
+        kendoDateRangeStartInput
+        [(value)]="range.start">
+      </kendo-dateinput>
+
+      <kendo-dateinput class="filterBar__daterange--end"
+        #endDateInput
+        placeholder="Fecha fin"
+        kendoDateRangeEndInput
+        [(value)]="range.end">
+      </kendo-dateinput>
+    </kendo-daterange>
+  </div>
+
+  <kendo-dropdownlist class="filterBar__periodicity"
+    kendoTooltip
+    position="bottom"
+    title="periodicidad"
+    [data]="periodicity"
+    [defaultItem]="defaultPeriodicity"
+    [valuePrimitive]="true"
+    (valueChange)="emitPeriodicitySelect($event)">
+  </kendo-dropdownlist>
+
+  <div class="filterBar__multiselect"
+    kendoTooltip
+    position="bottom"
+    title="seleccione multiples criterios">
+    <div class="fa fa-filter icon"></div>
+    <cvn-multiselect-filter
+      #filterMultiselect
+      [options]="multiselectOptions$ | async"
+      (selectFilter)="emitFiltersSelected()">
+    </cvn-multiselect-filter>
+  </div>
+</div>

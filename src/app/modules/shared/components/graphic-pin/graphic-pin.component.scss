@@ -1,0 +1,33 @@
+.btn {
+  margin-bottom: 0;
+  position: relative;
+  z-index: 2;
+  border-bottom: 2px solid transparent;
+  border-right: 1px solid transparent;
+  transition: 0.4s;
+  &.on, &:hover {
+    background: #ffce00;
+    border-bottom: 2px solid #bf9b02;
+    border-right: 1px solid #bf9b02;
+  }
+}
+.wrapper {
+  max-height: 150px;
+  overflow: auto;
+  font-size: 11px;
+  text-align: left;
+  p {
+    font-weight: bold;
+    margin-bottom: 4px;
+    line-height: 15px;
+  }
+  .listFilters {
+    padding-left: 14px;
+    line-height: 17px;
+    margin: 0;
+    li {
+      margin-bottom: 2px;
+      padding-left: 2px;
+    }
+  }
+}

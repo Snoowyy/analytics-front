@@ -1,0 +1,19 @@
+<div class="box u__bg--yellow-regular">
+  <cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+  <div class="box__title">Último Inventario Reportado</div>
+  <div class="box__data lastQty" *ngIf="last_inventory">{{data.last_inventory_qty | number}} Unidades</div>
+  <div class="box__data lastTotal" *ngIf="last_inventory">$ {{data.last_inventory_total | number}} COP</div>
+</div>
+
+<div class="box u__bg--yellow-regular">
+  <cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+  <div class="box__title">Venta Promedio </div>
+  <div class="box__data averageQty" *ngIf="average_sale">{{data.average_sale_qty | number}} Unidades</div>
+  <div class="box__data averageTotal" *ngIf="average_sale">$ {{data.average_sale_total | number}} COP</div>
+</div>
+
+<div class="box u__bg--yellow-regular">
+  <cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+  <div class="box__title">DÍAS DE INVENTARIO</div>
+  <div class="box__data__single daysQty" *ngIf="inventory_days">{{data.inventory_days}}</div>
+</div>

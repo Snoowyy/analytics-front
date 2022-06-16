@@ -1,0 +1,14 @@
+<div style="height: 700px;">
+  <ng-container
+    *ngIf="responsePowerBI">
+    <ngx-powerbi-component
+      *ngIf="responsePowerBI.rptUrl"
+      [options]="optionsBi"
+      type="report"
+      [id]="responsePowerBI.rptId"
+      [embedUrl]="responsePowerBI.rptUrl"
+      tokenType="Embed"
+      [accessToken]="responsePowerBI.embedToken.token">
+    </ngx-powerbi-component>
+  </ng-container>
+</div>

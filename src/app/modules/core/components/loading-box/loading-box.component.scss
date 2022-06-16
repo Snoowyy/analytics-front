@@ -1,0 +1,13 @@
+.loadingBox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(191, 191, 191, 0.2);
+  color: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}

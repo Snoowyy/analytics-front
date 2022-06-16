@@ -1,0 +1,286 @@
+<app-nav [routes]="routes"></app-nav>
+<cvn-panel-notifications></cvn-panel-notifications>
+
+<cvn-bar-filters></cvn-bar-filters>
+
+<div class="wrap u__padWrap u__top110">
+  <div class="wrapper__boxes W__19">
+    <div class="box">
+      <kendo-chart class="donutStyle">
+        <kendo-chart-series>
+          <kendo-chart-series-item type="donut" [data]="data.onTime" categoryField="kind" field="share">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+        <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+      </kendo-chart>
+      <div class="box__indicator">
+        <div class="data">83%</div>
+        <div class="label">On Time</div>
+      </div>
+    </div>
+    <div class="box">
+      <kendo-chart class="donutStyle">
+        <kendo-chart-series>
+          <kendo-chart-series-item type="donut" [data]="data.inFull" categoryField="kind" field="share">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+        <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+      </kendo-chart>
+      <div class="box__indicator">
+        <div class="data">79%</div>
+        <div class="label">In Full</div>
+      </div>
+    </div>
+    <div class="box">
+      <kendo-chart class="donutStyle">
+        <kendo-chart-series>
+          <kendo-chart-series-item type="donut" [data]="data.otif" categoryField="kind" field="share">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+        <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+      </kendo-chart>
+      <div class="box__indicator">
+        <div class="data">81%</div>
+        <div class="label">OTIF</div>
+      </div>
+    </div>
+  </div>
+  <div class="u__w80">
+    <div class="wrapper__graphics u__mbottom10">
+      <div class="titletop">
+        <div class="titletop__group">
+          <div class="titletop__group__title">OTIF POR CLIENTE</div>
+        </div>
+        <button class=" btn btn-warning">
+          <span>ANÁLISIS</span>
+        </button>
+      </div>
+      <kendo-chart class="bar__style">
+        <kendo-chart-tooltip format="{0}%">
+        </kendo-chart-tooltip>
+        <kendo-chart-value-axis>
+          <kendo-chart-value-axis-item [min]="0" [max]="100">
+          </kendo-chart-value-axis-item>
+        </kendo-chart-value-axis>
+        <kendo-chart-category-axis>
+          <kendo-chart-category-axis-item [categories]="data.clientServiceLevel">
+          </kendo-chart-category-axis-item>
+        </kendo-chart-category-axis>
+        <kendo-chart-series>
+          <kendo-chart-series-item color="#F4D03F" [data]="data.indicatorByClient" type="column">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <cvn-graphic-pin></cvn-graphic-pin>
+      </div>
+    </div>
+    <div class="wrapper__graphics">
+      <div class="titletop">
+        <div class="titletop__group">
+          <div class="titletop__group__title">OTIF POR CATEGORÍA</div>
+        </div>
+        <button class=" btn btn-warning">
+          <span>ANÁLISIS</span>
+        </button>
+      </div>
+      <kendo-chart class="bar__style">
+        <kendo-chart-tooltip format="{0}%">
+        </kendo-chart-tooltip>
+        <kendo-chart-value-axis>
+          <kendo-chart-value-axis-item [min]="0" [max]="100">
+          </kendo-chart-value-axis-item>
+        </kendo-chart-value-axis>
+        <kendo-chart-category-axis>
+          <kendo-chart-category-axis-item [categories]="data.categoryServiceLevel">
+          </kendo-chart-category-axis-item>
+        </kendo-chart-category-axis>
+        <kendo-chart-series>
+          <kendo-chart-series-item color="#E74C3C" [data]="data.indicatorByCategory" type="column">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <cvn-graphic-pin></cvn-graphic-pin>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <div class="titletop">
+      <div class="titletop__group">
+        <div class="titletop__group__title">HISTÓRICO DEL OTIF</div>
+      </div>
+      <button class=" btn btn-warning">
+        <span>ANÁLISIS</span>
+      </button>
+    </div>
+    <kendo-chart>
+      <kendo-chart-tooltip format="{0}%">
+      </kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom" orientation="horizontal">
+      </kendo-chart-legend>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item [min]="0" [max]="100">
+        </kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item [categories]="data.categoriesMonth">
+        </kendo-chart-category-axis-item>
+      </kendo-chart-category-axis>
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.historyData" [data]="item.historyData" [name]="item.cliente"
+          type="line">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+    <div class="fixedGraphic">
+      <cvn-graphic-pin></cvn-graphic-pin>
+    </div>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphicsGroup">
+    <div class="group u__w35">
+      <div class="titletop">
+        <div class="titletop__group">
+          <div class="titletop__group__title">CAUSALES</div>
+        </div>
+        <button class=" btn btn-warning">
+          <span>ANÁLISIS</span>
+        </button>
+      </div>
+      <kendo-chart>
+        <kendo-chart-tooltip format="{0}%">
+        </kendo-chart-tooltip>
+        <kendo-chart-legend position="bottom"></kendo-chart-legend>
+        <kendo-chart-series>
+          <kendo-chart-series-item type="pie" [data]="data.causal" field="value" categoryField="causal">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <cvn-graphic-pin></cvn-graphic-pin>
+      </div>
+    </div>
+
+    <div class="group u__w64">
+      <div class="titletop">
+        <div class="titletop__group">
+          <div class="titletop__group__title">EVOLUCIÓN DE CAUSALES</div>
+        </div>
+        <button class=" btn btn-warning">
+          <span>ANÁLISIS</span>
+        </button>
+      </div>
+      <kendo-chart [pannable]="true">
+        <kendo-chart-tooltip format="{0}%">
+        </kendo-chart-tooltip>
+        <kendo-chart-legend position="bottom" orientation="horizontal">
+        </kendo-chart-legend>
+        <kendo-chart-value-axis>
+          <kendo-chart-value-axis-item [min]="0" [max]="100">
+          </kendo-chart-value-axis-item>
+        </kendo-chart-value-axis>
+        <kendo-chart-category-axis>
+          <kendo-chart-category-axis-item [categories]="data.categoriesMonth" [labels]="{ rotation: 'auto'}">
+          </kendo-chart-category-axis-item>
+        </kendo-chart-category-axis>
+        <kendo-chart-series>
+          <kendo-chart-series-item *ngFor="let item of data.evolutionCausal" [data]="item.historyData" [name]="item.cliente"
+            [color]="item.color" type="line">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <cvn-graphic-pin></cvn-graphic-pin>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="wrap u__padWrap u__mbottom">
+  <div class="wrapper__graphics">
+    <div class="titletop">
+      <div class="titletop__group">
+        <div class="titletop__group__title">GESTIÓN DE CAUSALES</div>
+      </div>
+    </div>
+    <kendo-grid [data]="causalManagerData" [pageSize]="stateCausalManager.take" [skip]="stateCausalManager.skip" [sort]="stateCausalManager.sort"
+      [filter]="stateCausalManager.filter" [sortable]="true" [pageable]="true" filterable="menu">
+      <kendo-grid-column field="causal" title="Causal">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <div kendoTooltip title={{dataItem.descripcion}}>{{dataItem.causal}}</div>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="asignado" title="Asignado por:">
+      </kendo-grid-column>
+      <kendo-grid-column field="indicador" title="Indicador">
+      </kendo-grid-column>
+      <kendo-grid-column field="gestion" title="Gestión" filter="boolean">
+        <ng-template kendoGridCellTemplate let-dataItem class="gridOptions">
+          <div *ngIf="dataItem.id ==1">
+            <button class="btn btn-dark" *ngIf="!opened" (click)="open()">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div *ngIf="dataItem.id ==2">
+            <button class="btn btn-success">
+              <i class="fa fa-download" aria-hidden="true"></i> DESCARGAR LISTADO
+            </button>
+          </div>
+          <div class="gridOptions__manager" *ngIf="dataItem.id ==3">
+            <div>Venta perdida por 5.5MM</div>
+            <button class="btn btn-dark">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-dark">
+              <i class="fa fa-folder-open" aria-hidden="true"></i>
+            </button>
+          </div>
+        </ng-template>
+      </kendo-grid-column>
+    </kendo-grid>
+  </div>
+</div>
+
+
+<kendo-dialog class="dialogOptions" title="Asignación de causales" *ngIf="opened" (close)="close('cancel')">
+  <kendo-grid [data]="data.allocationOptions" [pageSize]="allocationOptionsState.take" [skip]="allocationOptionsState.skip"
+    [sort]="allocationOptionsState.sort" [filter]="allocationOptionsState.filter" [sortable]="true" [pageable]="true"
+    filterable="menu">
+    <kendo-grid-column field="producto" title="Producto">
+    </kendo-grid-column>
+    <kendo-grid-column field="ordenCompra" title="Orden de compra">
+    </kendo-grid-column>
+    <kendo-grid-column field="fecha" title="Fecha de la orden" filter="date" format="{0:d}">
+    </kendo-grid-column>
+    <kendo-grid-column width="110" field="Seleccionar" [filterable]="false">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <input type="checkbox">
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Asignar">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <kendo-dropdownlist [defaultItem]="'Asignar Causal'" [data]="data.causalList" [valuePrimitive]="true">
+        </kendo-dropdownlist>
+      </ng-template>
+    </kendo-grid-column>
+    <kendo-grid-column width="110" field="Guardar" [filterable]="false">
+      <ng-template kendoGridCellTemplate let-dataItem>
+        <button class="btn btn-dark">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
+        </button>
+      </ng-template>
+    </kendo-grid-column>
+  </kendo-grid>
+  <kendo-dialog-actions>
+    <button kendoButton (click)="close('no')">Cancelar</button>
+    <button kendoButton (click)="close('yes')" primary="true">Asignar</button>
+  </kendo-dialog-actions>
+</kendo-dialog>

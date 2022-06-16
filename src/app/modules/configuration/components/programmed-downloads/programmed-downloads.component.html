@@ -1,0 +1,82 @@
+<div class="wrapper">
+  <div class="box configuration">
+
+    <div class="box__title">Descargas programadas</div>
+
+    <form [formGroup]="formProgrammedDownload" (ngSubmit)="programmed()" id="formProgrammedDownload">
+      <kendo-autocomplete class="autocomplete"
+        formControlName="glnretailer"
+        [data]="clients"
+        [valueField]="'name'"
+        [kendoDropDownFilter]="filterSettings"
+        placeholder="Cadena"
+        ngDefaultControl>
+        <ng-template kendoAutoCompleteNoDataTemplate>
+          <p><span class="k-icon k-i-warning"></span><br/>No hay data disponible</p>
+        </ng-template>
+      </kendo-autocomplete>
+
+      <kendo-dropdownlist class="dropdown"
+        formControlName="periodicity" [data]="periodicity" ngDefaultControl>
+      </kendo-dropdownlist>
+
+      <kendo-dropdownlist class="dropdown"
+        formControlName="execution_day" [data]="days" ngDefaultControl>
+      </kendo-dropdownlist>
+
+      <button class="btn" type="submit" [disabled]="isLoadingData">
+        <cvn-loading-box *ngIf="isLoadingData"></cvn-loading-box>
+        <div class="btn__content" [ngClass]="{'btn__content-disabled': isLoadingData}">
+          <i class="fa fa-clock-o" aria-hidden="true"></i>
+          Programar
+        </div>
+      </button>
+    </form>
+
+    <kendo-grid
+      [data]="gridDataDownload"
+      [pageSize]="stateDownload.take"
+      [skip]="stateDownload.skip"
+      [sort]="stateDownload.sort"
+      [sortable]="true"
+      [pageable]="true"
+      [loading]="isLoadingData"
+      (dataStateChange)="dataStateChangeDownload($event)">
+
+      <kendo-grid-column field="id" *ngIf="false"></kendo-grid-column>
+
+      <kendo-grid-column field="glnretailer_name" title="Cadena" headerClass="glnretailer"></kendo-grid-column>
+
+      <kendo-grid-column field="periodicity" title="Frecuencia" class="frequency" headerClass="frequency">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem.periodicity | dictionary}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="execution_day" title="ejecucion" class="execution" headerClass="execution">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          {{dataItem.execution_day | dictionary}}
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="estadoIcon" title="Eliminar" class="remove" headerClass="remove">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <button class="btn btn-dark" (click)="deleteProgrammedDownload(dataItem.id)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </button>
+        </ng-template>
+      </kendo-grid-column>
+
+      <ng-template kendoGridNoRecordsTemplate>
+        No hay resultados para esta consulta.
+      </ng-template>
+
+      <kendo-grid-messages>
+        pagerPage="Página"
+        pagerOf="de"
+        pagerItems="ítems"
+        pagerItemsPerPage="ítems por página">
+      </kendo-grid-messages>
+    </kendo-grid>
+  </div>
+</div>

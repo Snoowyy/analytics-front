@@ -1,0 +1,13 @@
+.fixedGraphic {
+  justify-content: space-between;
+  &__convention {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

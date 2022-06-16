@@ -1,0 +1,30 @@
+<form class="k-form" [formGroup]="marginForm" (ngSubmit)="saveMargin()">
+  <fieldset>
+    <label class="k-form-field">
+      <span>GTIN PRODUCTO</span>
+      <input class="k-textbox"
+      formControlName="gtin"
+      placeholder="Ej: 123456789"/>
+    </label>
+    <label class="k-form-field">
+      <span>GLN PV</span>
+      <input class="k-textbox"
+      formControlName="gln_retailer_location"
+      placeholder="Ej: 123456789"/>
+    </label>
+    <label class="k-form-field">
+      <span>MARGEN </span>
+      <input class="k-textbox"
+      formControlName="margin"
+      placeholder="Ej: 0.5%"/>
+    </label>
+  </fieldset>
+  <div class="text-right">
+    <button type="button" id="cancelForm" class="k-button" (click)="emitClose()">
+      Cancelar
+    </button>
+    <button type="submit" class="k-button k-primary">
+      Subir
+    </button>
+  </div>
+</form>

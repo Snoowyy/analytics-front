@@ -1,0 +1,63 @@
+<cvn-loading-box *ngIf="isLoading"></cvn-loading-box>
+
+<div class="message" [ngClass]="{'message-on': showNoResultsMessage }">
+  <p>No hay resultados para el rango de fechas actual</p>
+</div>
+
+<cvn-graphic-title [title]="title"></cvn-graphic-title>
+
+<kendo-chart (seriesHover)="onSeriesHover($event)"
+  [categoryAxis]="{ labels: { rotation: '-45'} }">
+  <kendo-chart-legend position="bottom" orientation="horizontal"></kendo-chart-legend>
+
+  <kendo-chart-tooltip format="${0}">
+    <ng-template kendoChartSeriesTooltipTemplate
+      let-value="value">
+      {{ currentSeriesInHover }} <br> ${{ value | number: '1.0-3' }}
+    </ng-template>
+  </kendo-chart-tooltip>
+
+  <kendo-chart-series>
+    <kendo-chart-series-item
+      type="column"
+      field="value"
+      categoryField="shortName"
+      [name]="graphData.name"
+      [data]="graphData.sales"
+      [color]="graphDataColor">
+    </kendo-chart-series-item>
+  </kendo-chart-series>
+
+  <kendo-chart-value-axis>
+    <kendo-chart-value-axis-item [labels]="{ format: ' 0,0' }">
+      <kendo-chart-value-axis-item-title text="COP"
+        [position]="graphConfig.labelXPosition"
+        [color]="graphConfig.labelColor">
+      </kendo-chart-value-axis-item-title>
+    </kendo-chart-value-axis-item>
+  </kendo-chart-value-axis>
+</kendo-chart>
+
+<div class="fixedGraphic">
+  <button class="btn exportExcel"
+    kendoTooltip
+    position="left"
+    title="Exportar a excel"
+    [ngClass]="{'on': graphDataExcel && !isLoading}"
+    (click)="excelexport.save()">
+    <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+  </button>
+
+  <cvn-graphic-pin class="optionGraphic"
+    [ngClass]="{'on': !isLoading}"
+    [state]="isPinned"
+    [pinned]="pinned"
+    [id]="id"
+    (click)="toggleFixPinGraphic()">
+  </cvn-graphic-pin>
+</div>
+
+<kendo-excelexport [data]="graphDataExcel"  fileName="{{id}}.xlsx" #excelexport>
+  <kendo-excelexport-column field="name" title="Nombre" [width]="250"></kendo-excelexport-column>
+  <kendo-excelexport-column field="value" title="Valor" [width]="150"></kendo-excelexport-column>
+</kendo-excelexport>

@@ -1,0 +1,66 @@
+<div class="container animated fadeIn">
+  <div class="row">
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6 main-container bg-card form-type top-50">
+      <div class="logo">
+        <img src="assets/images/logo.png" alt="">
+      </div>
+      <div>
+        <h5>
+          <img src="assets/images/login_icon.png"> Log In
+        </h5>
+        <hr>
+      </div>
+      <ng-container *ngLet="isAuthenticated$ | async as isAuthenticated">
+        <ng-container *ngIf="isAuthenticated !== null">
+          <div class="form-error alert alert-danger" *ngIf="!isAuthenticated.isLogged && isAuthenticated.isLogged !== null">
+            {{constants.request.unauthorized}}
+          </div>
+        </ng-container>
+      </ng-container>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate class="container">
+        <div class="form-group row">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <img src="assets/images/user-icon-lg.png">
+              </span>
+            </div>
+            <input class='form-control' formControlName="name" placeholder="Correo" />
+          </div>
+          <div *ngIf="(name.invalid && (name.dirty || name.touched))" class="form-error alert alert-danger">
+
+            <div *ngIf="name.errors.required">
+              {{constants.fields.required("Correo")}}
+            </div>
+            <div *ngIf="name.errors.email">
+              {{constants.fields.emailFormat("Correo")}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <!-- <label class='center-block' class='col-3'>Número de documento</label> -->
+
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <img src="assets/images/icon_documento.png"> </span>
+            </div>
+            <input class='form-control' formControlName="password" placeholder="Contraseña" type="password" />
+          </div>
+          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="form-error alert alert-danger">
+
+            <div *ngIf="password.errors.required">
+              {{constants.fields.required("Contraseña")}}
+            </div>
+          </div>
+        </div>
+        <div class="btn__container">
+          <button type="submit" class="btn-orange">Login</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

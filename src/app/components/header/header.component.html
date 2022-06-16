@@ -1,0 +1,74 @@
+<div class="header">
+  <div class="header__brand">
+    <div class="brand" *ngIf="headerModel.headerShowIco; else noHref">
+      <a href="#">
+        <img src="/assets/images/logo-cvn.png" alt="Logyca">
+      </a>
+    </div>
+    <ng-template #noHref>
+      <a href="javascript:false">
+        <img src="/assets/images/logo-cvn.png" alt="Logyca">
+      </a>
+    </ng-template>
+    <div class="module_title">
+      <span class="module_title__pipeline" *ngIf="headerModel.headerName != ''">|</span>
+      <div class="module_title__title">
+        <img src="{{headerModel.headerIco}}"> {{headerModel.headerName}}
+      </div>
+    </div>
+  </div>
+
+  <div class="header__login" *ngIf="headerModel.headerShowIco">
+    <ul class="list">
+      <ng-container *ngIf="state$ | async as state; else login">
+        <li id="username" (click)="onToggle()" *ngIf="state.isAuthenticated; else login">
+          <label #anchor>
+            <div class="list__button">
+              <i class="fa fa-user-circle-o user_ico"></i>
+              <span class="user_name">{{state.username}}</span>
+            </div>
+          </label>
+
+          <kendo-popup popupClass="content popup"
+            *ngIf="show"
+            align="center"
+            [anchor]="anchor"
+            (anchorViewportLeave)="show = false">
+            <div class="login_popup">
+              <div class="login_popup__user_info">
+                <div class="brand">
+                  <img class="user_img" [src]='state.ImageUrl' />
+                </div>
+                <div class="info">
+                  <div class="user_name">{{state.username}}</div>
+                  <div class="user_entreprise"><i class="fa fa-briefcase fa-1x"></i> {{state.companyName}}</div>
+                </div>
+              </div>
+              <div class="login_popup__user_options">
+                <a class="btn modules"
+                  id="btnListModules"
+                  [routerLink]="['/select']">
+                  <i class="fa fa-window-maximize"></i> Mis módulos
+                </a>
+                <a class="btn signout"
+                  id="btnSignout"
+                  href="javascript:false"
+                  (click)="logout()">
+                  <i class="fa fa-sign-out"></i> Cerrar sesión
+                </a>
+              </div>
+            </div>
+          </kendo-popup>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+</div>
+
+<ng-template #login>
+  <li class="nav_item" routerLinkActive='active'>
+    <a [routerLink]="['/user']" id="user-ico">
+      <img class="user_ico" src="assets/images/login.ico"> Login
+    </a>
+  </li>
+</ng-template>

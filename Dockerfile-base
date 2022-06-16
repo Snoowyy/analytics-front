@@ -1,0 +1,13 @@
+
+FROM node:10.15 as dev
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+RUN apt-get -qq -y update && apt-get install -qq -y google-chrome-stable
+RUN apt-get install libssl-dev openssl
+RUN wget https://www.python.org/ftp/python/3.6.8/Python-3.6.8.tgz \
+    && tar xzvf Python-3.6.8.tgz \
+    && cd Python-3.6.8 \
+    && ./configure \
+    && make \
+    && make install
+RUN npm install -g @angular/cli@7.2.4 --unsafe

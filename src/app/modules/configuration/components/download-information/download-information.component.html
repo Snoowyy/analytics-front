@@ -1,0 +1,47 @@
+<div class="box configuration">
+
+  <div class="box__title">Descarga de información</div>
+
+  <form [formGroup]="formDownloadInformation"
+    id="formDownloadInformation"
+    class="formDownloadInformation"
+    (ngSubmit)="downloadInformation()">
+    <kendo-autocomplete class="autocomplete"
+      formControlName="glnretailer"
+      [data]="clients"
+      [valueField]="'name'"
+      [kendoDropDownFilter]="filterSettings"
+      placeholder="Cadena"
+      ngDefaultControl>
+      <ng-template kendoAutoCompleteNoDataTemplate>
+        <p>
+          <span class="k-icon k-i-warning"></span><br/>
+          No hay data disponible
+        </p>
+      </ng-template>
+    </kendo-autocomplete>
+
+    <kendo-daterange class="datarange">
+      <kendo-dateinput class="datarange__start"
+        placeholder="Fecha inicio"
+        kendoDateRangeStartInput
+        formControlName="start_date"
+        ngDefaultControl>
+      </kendo-dateinput>
+      <kendo-dateinput class="datarange__end"
+        placeholder="Fecha fin"
+        kendoDateRangeEndInput
+        formControlName="end_date"
+        ngDefaultControl>
+      </kendo-dateinput>
+    </kendo-daterange>
+
+    <button class="btn" type="submit" [disabled]="isLoadingData">
+      <cvn-loading-box *ngIf="isLoadingData"></cvn-loading-box>
+      <div class="btn__content" [ngClass]="{'btn__content-disabled': isLoadingData}">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        Descargar
+      </div>
+    </button>
+  </form>
+</div>

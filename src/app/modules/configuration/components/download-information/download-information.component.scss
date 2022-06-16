@@ -1,0 +1,41 @@
+.box {
+  justify-content: space-between;
+  align-items: center;
+  .formDownloadInformation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    .autocomplete {
+      width: calc(100% - 560px);
+    }
+    input {
+      text-align: left;
+      font-size: 15px;
+      color: #838383;
+    }
+    .datarange {
+      display: flex;
+      justify-content: center;
+      &__start {
+        margin-right: 5px;
+      }
+      &__end {
+        margin-left: 5px;
+      }
+    }
+    .btn {
+      margin-bottom: 0;
+      &__content {
+        opacity: 1;
+        transition: .4s;
+        &-disabled {
+          opacity: 0;
+        }
+      }
+      .loadingBox {
+        font-size: 8px;
+      }
+    }
+  }
+}

@@ -1,0 +1,391 @@
+<router-outlet></router-outlet>
+<app-nav [routes]="routes"></app-nav>
+<cvn-panel-notifications [notifications]="[]"></cvn-panel-notifications>
+
+<cvn-bar-filters #filterBar
+  [filters]="filters$ | async">
+</cvn-bar-filters>
+
+<div class="wrap u__padWrap u__top110">
+  <div class="wrapper__boxes W__34">
+    <div class="box u__bg--yellow-regular">
+      <div class="box__title">Costo del agotado</div>
+      <div class="box__data">$5.6 MM COP</div>
+    </div>
+    <div class="box u__bg--yellow-regular">
+      <div class="box__title">Indicador de agotado</div>
+      <div class="box__data">29,9%</div>
+    </div>
+
+    <div class="wrapper__graphics w__100">
+      <cvn-graphic-title [title]="'ACTIVACIÓN DE PORTAFOLIO'"></cvn-graphic-title>
+
+      <kendo-chart [seriesColors]="data.colorPortfolio">
+        <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
+        <kendo-chart-legend position="top"></kendo-chart-legend>
+        <kendo-chart-series>
+          <kendo-chart-series-item
+            type="pie"
+            field="value"
+            categoryField="category"
+            [data]="data.portfolioActivation">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper__graphics w__65">
+    <cvn-graphic-title [title]="'TENDENCIA DEL AGOTADO'"></cvn-graphic-title>
+
+    <kendo-chart>
+      <kendo-chart-legend position="bottom"></kendo-chart-legend>
+      <kendo-chart-tooltip></kendo-chart-tooltip>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item *ngFor="let item of data.stockoutTrendAxes"
+          [labels]="{ format: item.format }"
+          [name]="item.name"
+          [title]="{ text: item.title }"
+          [color]="item.color">
+        </kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item
+          [categories]="data.categoriesStockoutTrend"
+          [axisCrossingValue]="data.crossingValues">
+        </kendo-chart-category-axis-item>
+      </kendo-chart-category-axis>
+
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.stockoutTrend"
+          [name]="item.name"
+          [data]="item.data"
+          [type]="item.type"
+          [stack]="item.stack"
+          [color]="item.color"
+          [axis]="item.axis">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap u__padWrap">
+  <div class="u__w49">
+    <div class="wrapper__graphics">
+      <cvn-graphic-title [title]="'AGOTADO EN PUNTO DE VENTA'"></cvn-graphic-title>
+
+      <kendo-chart>
+        <kendo-chart-tooltip format="0, 0"></kendo-chart-tooltip>
+        <kendo-chart-value-axis>
+          <kendo-chart-value-axis-item [labels]="{ format: ' 0,0' }">
+          </kendo-chart-value-axis-item>
+        </kendo-chart-value-axis>
+        <kendo-chart-category-axis>
+          <kendo-chart-category-axis-item
+            [categories]="data.categoriesStockoutTreeCadena"
+            [title]="{ text: 'Agotado por Cliente' }">
+          </kendo-chart-category-axis-item>
+        </kendo-chart-category-axis>
+        <kendo-chart-series>
+          <kendo-chart-series-item type="column"
+            [data]="data.stockoutTreeCadena"
+            [color]="categoriesStockoutTreeColorCadena">
+          </kendo-chart-series-item>
+
+        </kendo-chart-series>
+      </kendo-chart>
+
+      <div class="fixedGraphic">
+        <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="u__w49">
+    <div class="wrapper__graphics">
+      <cvn-graphic-title [title]="'AGOTADO POR PRODUCTO'"></cvn-graphic-title>
+
+      <kendo-chart>
+        <kendo-chart-tooltip format="0, 0"></kendo-chart-tooltip>
+
+        <kendo-chart-category-axis>
+          <kendo-chart-category-axis-item
+            [categories]="data.categoriesStockoutTreeProducto"
+            [title]="{ text: 'Agotado por Categoría' }">
+          </kendo-chart-category-axis-item>
+        </kendo-chart-category-axis>
+        <kendo-chart-series>
+          <kendo-chart-series-item type="column"
+            [data]="data.stockoutTreeProducto"
+            [color]="categoriesStockoutTreeColorProducto">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+
+      <div class="fixedGraphic">
+        <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__graphics">
+    <cvn-graphic-title [title]="'PREVISIÓN DEL AGOTADO'"></cvn-graphic-title>
+
+    <kendo-chart
+      [categoryAxis]="{ categories: data.categoriesForecastStockout, max: 20, labels: { rotation: 'auto'} }">
+      <kendo-chart-legend [visible]="false"></kendo-chart-legend>
+      <kendo-chart-tooltip format="0, 0"></kendo-chart-tooltip>
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.forecastStockout"
+          type="column"
+          [data]="item.data"
+          [name]="item.name"
+          [color]="item.color">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item [labels]="{ format: ' 0,0' }"></kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+    </kendo-chart>
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>
+
+<div class="u__padWrap">
+  <div class="wrapper__map">
+    <cvn-graphic-title [title]="'AGOTADO POR PUNTO DE VENTA'"></cvn-graphic-title>
+
+    <div class="mapcard">
+
+      <div class="mapcard__item">
+        <div class="category">Cliente:</div>
+        <div class="data">Multicadena</div>
+      </div>
+      <div class="mapcard__item">
+        <div class="category">Punto de Venta:</div>
+        <div class="data">Punto Venta Chapínero</div>
+      </div>
+      <div class="mapcard__item">
+        <div class="category">Agotado en COP</div>
+        <div class="data">$5.284.750 COP</div>
+      </div>
+      <div class="mapcard__item">
+        <div class="category">Agotado en unidades:</div>
+        <div class="data">256 unidades</div>
+      </div>
+      <div class="mapcard__item">
+        <div class="category">Fecha de la Última actualización:</div>
+        <div class="data">12 de diciembre de 2018</div>
+      </div>
+      <div class="mapcard__item">
+        <div class="category">Causales:</div>
+        <ul>
+          <li>
+            Góndola no abastecida
+          </li>
+          <li>
+            Inexactitud en inventario
+          </li>
+          <li>
+            Producto no solicitado
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="map" leaflet
+      [leafletOptions]="options"
+      [leafletLayersControl]="layersControl">
+    </div>
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap u__padWrap">
+  <div class="wrapper__boxes W__28">
+    <div class="box u__bg--yellow-regular">
+      <div class="box__title">Puntos de venta medidos</div>
+      <div class="box__data">182</div>
+    </div>
+    <div class="box u__bg--yellow-regular">
+      <div class="box__title">Puntos de venta NO medidos</div>
+      <div class="box__data">8</div>
+    </div>
+
+    <div class="wrapper__graphics w__100">
+      <cvn-graphic-title [title]="'RESUMEN DE RESULTADOS'"></cvn-graphic-title>
+
+      <kendo-chart class="style__chart" [seriesColors]="data.colordetailstock">
+        <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
+        <kendo-chart-legend position="top"></kendo-chart-legend>
+        <kendo-chart-series>
+          <kendo-chart-series-item
+            [data]="data.detailstock"
+            type="pie"
+            field="value"
+            categoryField="category">
+          </kendo-chart-series-item>
+        </kendo-chart-series>
+      </kendo-chart>
+      <div class="fixedGraphic">
+        <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper__graphics w__34">
+    <cvn-graphic-title [title]="'PARTICIPACIÓN DE LAS CAUSALES DISPONIBLE'"></cvn-graphic-title>
+
+    <kendo-chart>
+      <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom"></kendo-chart-legend>
+      <kendo-chart-series>
+        <kendo-chart-series-item
+          [data]="data.participationCausalAviable"
+          type="pie"
+          field="value"
+          categoryField="category">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+  <div class="wrapper__graphics w__34">
+    <cvn-graphic-title [title]="'PARTICIPACIÓN DE LAS CAUSALES AGOTADO'"></cvn-graphic-title>
+
+    <kendo-chart>
+      <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom"></kendo-chart-legend>
+      <kendo-chart-series>
+        <kendo-chart-series-item
+          [data]="data.participationCausalStock"
+          type="pie"
+          field="value"
+          categoryField="category">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap u__padWrap">
+  <div class="wrapper__graphics w__49">
+    <cvn-graphic-title [title]="'Desempeño por cliente'"></cvn-graphic-title>
+
+    <kendo-chart [pannable]="true" (render)="goalPerformance($event)">
+      <kendo-chart-tooltip format="{0}%">
+      </kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom" orientation="horizontal">
+      </kendo-chart-legend>
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item
+          [labels]="{ rotation: 'auto'}"
+          [categories]="data.categoriesClient"
+          name="categoryAxis">
+        </kendo-chart-category-axis-item>
+      </kendo-chart-category-axis>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item [min]="0" [max]="100" name="valueAxis"></kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.customerPerformance"
+          [data]="item.historyData"
+          [name]="item.cliente"
+          [color]="item.color"
+          type="column">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+
+  <div class="wrapper__graphics w__49">
+    <cvn-graphic-title [title]="'Causales por cliente'"></cvn-graphic-title>
+
+    <kendo-chart [pannable]="true">
+      <kendo-chart-tooltip format="{0}%">
+      </kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom" orientation="horizontal">
+      </kendo-chart-legend>
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item
+          [labels]="{ rotation: 'auto'}"
+          [categories]="data.categoriesClient">
+        </kendo-chart-category-axis-item>
+      </kendo-chart-category-axis>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item [min]="0" [max]="100">
+        </kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.customerCausal"
+          type="column"
+          [stack]="true"
+          [data]="item.data"
+          [name]="item.causal"
+          [color]="item.color">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>
+
+<div class="u__padWrap u__mbottom">
+  <div class="wrapper__graphics">
+    <cvn-graphic-title [title]="'EVOLUCIÓN DE CAUSALES'"></cvn-graphic-title>
+
+    <kendo-chart [pannable]="true">
+      <kendo-chart-tooltip format="{0}%">
+      </kendo-chart-tooltip>
+      <kendo-chart-legend position="bottom" orientation="horizontal">
+      </kendo-chart-legend>
+      <kendo-chart-value-axis>
+        <kendo-chart-value-axis-item [min]="0" [max]="100"></kendo-chart-value-axis-item>
+      </kendo-chart-value-axis>
+      <kendo-chart-category-axis>
+        <kendo-chart-category-axis-item
+          [categories]="data.categoriesMonth"
+          [labels]="{ rotation: 'auto'}">
+        </kendo-chart-category-axis-item>
+      </kendo-chart-category-axis>
+      <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of data.stockoutEvolutionCausal"
+          type="line"
+          [data]="item.data"
+          [name]="item.causal"
+          [color]="item.color"
+          [dashType]="item.lineType"
+          [width]="item.lineWidth">
+        </kendo-chart-series-item>
+      </kendo-chart-series>
+    </kendo-chart>
+
+    <div class="fixedGraphic">
+      <button class="btn btn-dark fa fa-thumb-tack" aria-hidden="true"></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+@import "../../../styles/global/utilities";
+@import "../../../styles/variables/variables.scss";
+
+.dialogError{
+    @include flexContainer;
+    justify-content: space-between;
+    align-items: center;
+    &__image{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+    }
+    &__description{
+        width: 68%;
+        font-size: 15px;
+        color: $logyca-grey-regular;
+        .title{
+            font-weight: 900;
+            font-size: 20px
+        }
+    }
+}
+
+.dialogErrorBottun{
+    @include flexContainer;
+    justify-content: flex-end;
+    margin: 25px 0;
+}

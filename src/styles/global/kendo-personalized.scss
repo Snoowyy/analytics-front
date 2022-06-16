@@ -1,0 +1,78 @@
+// forms
+.k-form fieldset,
+.k-form-inline fieldset {
+  border-width: 0 !important;
+  border-style: none !important;
+  margin: 27px 0 !important;
+}
+
+.k-textarea {
+  font-size: 15px;
+  width: 350px;
+  padding: 10px;
+}
+
+.k-textbox {
+  padding: 10px;
+}
+
+.k-form,
+.k-form-inline {
+  padding: 0;
+}
+
+// dialogs
+.k-dialog-titlebar {
+  border-color: inherit;
+  color: #fff;
+  background-color: #ff6358;
+  padding: 12px 16px;
+}
+
+.k-dialog-button-layout-stretched .k-button {
+  flex: initial;
+}
+
+.k-dialog-button-layout-stretched {
+  padding: 8px;
+}
+
+.k-popup {
+  padding: 0;
+  text-align: center;
+}
+
+.k-window {
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #656565;
+  background-color: #fff;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.06);
+}
+
+.k-window.k-state-focused {
+  box-shadow: 1px 1px 7px 1px rgba(0, 0, 0, 0.3);
+}
+
+// calendar
+.k-calendar.k-calendar-range.k-calendar-infinite > .k-calendar-view {
+  border-width: 0;
+}
+
+.k-calendar .k-month td,
+.k-calendar .k-calendar-monthview td {
+  height: 0;
+}
+
+// panelbar
+.k-panelbar > .k-item > .k-link.k-state-selected {
+  color: #6c757d;
+}
+
+.k-panelbar > .k-item > .k-link {
+  cursor: pointer;
+}
+
+// tables
+.k-grid {
+  border-color: transparent;
+}

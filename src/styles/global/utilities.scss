@@ -1,0 +1,157 @@
+@import "../variables/variables.scss";
+@import "../mixins/mixins.scss";
+
+.u {
+  &__padWrap {
+    padding: 20px 70px;
+  }
+
+  &__height65 {
+    height: 65px;
+  }
+
+  &__padWrapExtend {
+    padding: 20px 70px;
+  }
+  &__top50 {
+    margin-top: 50px;
+  }
+  &__top110 {
+    margin-top: 110px;
+  }
+
+  &__top-30 {
+    margin-top: -30px;
+  }
+
+  &__bg--yellow-light {
+    background-color: $yellow-light;
+    color: $white;
+  }
+
+  &__color--yellow-light {
+    color: $yellow-light;
+  }
+
+  &__bg--yellow-regular {
+    background-color: $yellow-regular;
+    color: $white;
+  }
+
+  &__color--yellow-regular {
+    color: $yellow-regular;
+  }
+
+  &__bg--yellow-dark {
+    background-color: $yellow-dark;
+    color: $white;
+  }
+
+  &__color--yellow-dark {
+    color: $yellow-dark;
+  }
+
+  &__bg--blue-regular {
+    background: $blue-regular;
+  }
+
+  &__bg--white {
+    background: white;
+  }
+
+  &__bg--blue-light {
+    background: $blue-light;
+  }
+
+  &__poddingTop10 {
+    padding-top: 10px;
+  }
+
+  &__poddingRight10 {
+    padding-right: 10px;
+  }
+
+  &__w5 {
+    width: 5%;
+  }
+  &__w10 {
+    width: 10%;
+  }
+  &__w15 {
+    width: 15%;
+  }
+
+  &__w25 {
+    width: 25%;
+  }
+
+  &__w27 {
+    width: 27%;
+  }
+
+  &__w35 {
+    width: 35%;
+  }
+
+  &__w40 {
+    width: 40%;
+  }
+  &__w41 {
+    width: 41%;
+  }
+
+  &__w45 {
+    width: 45%;
+  }
+
+  &__w49 {
+    width: 49%;
+  }
+
+  &__w64 {
+    width: 64%;
+  }
+  &__w65 {
+    width: 65%;
+  }
+  &__w70 {
+    width: 70%;
+  }
+  &__w80 {
+    width: 80%;
+  }
+  &__w90 {
+    width: 90%;
+  }
+
+  &__mbottom10 {
+    margin-bottom: 10px;
+  }
+  &__mbottom20 {
+    margin-bottom: 20px;
+  }
+
+  &__mbottom30 {
+    margin-bottom: 30px;
+  }
+
+  &__mbottom5 {
+    margin-bottom: 5px;
+  }
+
+  &__mbottom {
+    margin-bottom: 50px;
+  }
+
+  &__mbottom150 {
+    margin-bottom: 150px;
+  }
+
+  &__mtop {
+    margin-top: 10px;
+  }
+  
+  &__mtop20 {
+    margin-top: 20px;
+  }
+}

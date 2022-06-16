@@ -1,0 +1,284 @@
+$upload-border: transparent;
+$grid-cell-padding-x: 10px;
+$grid-header-padding-x: 10px;
+$upload-button-margin: 0;
+
+@import "~bootstrap/scss/bootstrap";
+@import "~@progress/kendo-theme-material/scss/all";
+@import "~leaflet/dist/leaflet.css";
+@import "./global/nav-bar.scss";
+@import "./global/utilities.scss";
+@import "./mixins/mixins.scss";
+@import "./variables/variables.scss";
+@import "./global/kendo-personalized.scss";
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  @include background-material-card;
+  &__title {
+    text-transform: uppercase;
+    width: 100%;
+    text-align: center;
+  }
+  &__data {
+    font-size: 24px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    &__single {
+      font-size: 70px;
+      font-weight: bolder;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  &__legend {
+    font-size: 15px;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.convention {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+  &__item {
+    margin-right: 5px;
+  }
+  &__text {
+    font-size: 12px;
+  }
+}
+
+.fixedGraphic {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  .btn.previousLevel {
+    position: relative;
+    z-index: 3;
+    margin-bottom: 0;
+    opacity: 0;
+    visibility: hidden;
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+    transition: 0.5s;
+    &.on {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  .exportExcel {
+    margin-bottom: 0;
+    margin-right: 5px;
+    position: relative;
+    border-bottom: 2px solid transparent;
+    border-right: 1px solid transparent;
+    color: #3cb93c;
+    z-index: 2;
+    font-size: 16px;
+    height: 33px;
+    width: 44px;
+    padding: 0;
+    opacity: 0;
+    transition: 0.5s;
+    &:hover {
+      background: #3cb93c;
+      border-bottom: 2px solid #0d9411;
+      border-right: 1px solid #0d9411;
+      color: white;
+    }
+    &.on {
+      opacity: 1;
+    }
+  }
+  .optionGraphic {
+    opacity: 0;
+    transition: .4s;
+    &.on {
+      opacity: 1;
+    }
+  }
+}
+
+.message {
+  color: #818181;
+  font-size: 14px;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  opacity: 0;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  transition: .4s;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  &-on {
+    opacity: 1;
+    z-index: 1;
+  }
+}
+
+.main-container {
+  margin-top: 130px;
+}
+
+.parameters {
+  @include flexContainer;
+  justify-content: start;
+  &__item {
+    text-transform: uppercase;
+  }
+}
+
+.titletop {
+  @include flexContainer;
+  justify-content: space-between;
+  align-items: center;
+  &__group {
+    @include flexContainer;
+    justify-content: space-around;
+    align-items: center;
+    &__titleDate {
+      margin-left: 10px;
+      color: $yellow-regular;
+      font-weight: bold;
+    }
+    &__title {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  }
+  &__title {
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  &__message {
+    font-weight: 500;
+    color: #ff5722;
+  }
+}
+
+.wrap {
+  @include flexContainer;
+  justify-content: space-between;
+}
+
+.wrapper {
+  &__boxes {
+    &.W__19 {
+      width: 19%;
+    }
+    &.W__28 {
+      width: 28%;
+    }
+    &.W__32 {
+      width: 32%;
+    }
+    &.W__34 {
+      width: 34%;
+    }
+    &.W__36 {
+      width: 36%;
+    }
+    &.W__45 {
+      width: 45%;
+    }
+    &.W__49 {
+      width: 49%;
+    }
+    &.W__100 {
+      width: 100%;
+    }
+  }
+  &__graphics {
+    @include background-material-card;
+    background-color: $white;
+    position: relative;
+    &.w__34 {
+      width: 34%;
+    }
+    &.w__34 {
+      width: 34%;
+    }
+    &.w__49 {
+      width: 49%;
+    }
+    &.w__65 {
+      width: 65%;
+    }
+    &.w__70 {
+      width: 70%;
+    }
+    &.w__100 {
+      width: 100%;
+    }
+    .layer {
+      position: relative;
+      overflow: hidden;
+      &__detail {
+        position: absolute;
+        right: -440px;
+        top: 0;
+        bottom: 0;
+        left: 440px;
+        z-index: 2;
+        padding: 5px;
+        background: $grey-light;
+
+        transition: 0.7s;
+        &.active {
+          left: 0;
+          right: 0;
+        }
+      }
+    }
+    &Group {
+      @include background-material-card;
+      background-color: $white;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+  &__map {
+    @include background-material-card;
+    background-color: $white;
+  }
+}
+
+::-webkit-scrollbar {
+  padding: 3px;
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

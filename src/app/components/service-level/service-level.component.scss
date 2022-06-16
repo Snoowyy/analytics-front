@@ -1,0 +1,40 @@
+@import "../../../styles/styles.scss";
+
+.dialogOptions {
+  width: 95%;
+  margin-left: 20px;
+}
+
+.box {
+  background: $white;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  .donutStyle {
+    width: 130px;
+    height: 140px;
+  }
+  &__indicator {
+    .data {
+      font-size: 45px;
+      font-weight: 700;
+      color: $logyca-grey-regular;
+    }
+    .label {
+      font-size: 15px;
+      font-weight: 500;
+      color: $logyca-grey-regular;
+    }
+  }
+}
+
+.bar__style {
+  height: 148px;
+}
+
+.gridOptions {
+  &__manager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

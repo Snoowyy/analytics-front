@@ -1,0 +1,110 @@
+.box {
+  &.configuration {
+    flex-direction: column;
+  }
+  .wrapper {
+    width: 100%;
+    .templates {
+      display: flex;
+      li {
+        margin-right: 12px;
+        margin-bottom: 0;
+        a {
+          margin-bottom: 0;
+          padding: 8px 16px;
+          &:hover {
+            background: rgba(211, 211, 211, 1);
+          }
+        }
+      }
+    }
+    ul {
+      padding-left: 0;
+      width: 100%;
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        p {
+          margin-bottom: 0;
+          width: calc(100% - 190px);
+        }
+        /deep/ .k-button, .btn {
+          text-transform: capitalize;
+          background: rgba(0, 0, 0, 0.08);
+        }
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 0;
+          width: 100%;
+          p {
+            width: 100%;
+          }
+          .content {
+            width: 100%;
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            .k-upload {
+              width: calc(100% - 200px);
+            }
+            button {
+              margin-left: 15px;
+            }
+          }
+        }
+        button {
+          height: 36px;
+        }
+      }
+    }
+
+    .option {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+/deep/ .k-window-content {
+  padding-bottom: 0;
+}
+
+.content-btn-and-modal {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  .container-upload-and-error {
+    flex: 0 0 200px;
+    kendo-upload {
+      width: 400px;
+    }
+  }
+  .modal-btn {
+    width: 100%;
+    text-align: center
+  }
+}
+.container-upload-and-error {
+    .alertUpload{
+    padding: 0.5em;
+    display: flex;
+    color: #ff3838;
+    align-items: center;
+    &__icon{
+      margin-right: 0.5em;
+      font-weight: 900;
+    }
+    &__text_success {
+      color: #279460;
+    }
+  }
+}
+

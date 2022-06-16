@@ -1,0 +1,49 @@
+@import "../../../../styles/styles.scss";
+
+.box {
+  flex: .485;
+  margin-bottom: 10px;
+  &__data {
+    font-size: 20px;
+  }
+}
+
+.map {
+  height: 530px;
+  padding: 0;
+  z-index: 1;
+}
+
+.mapcard {
+  @include background-material-card;
+  background-color: $white;
+  position: absolute;
+  z-index: 2;
+  right: 239px;
+  margin-top: 50px;
+  color: $logyca-grey-regular;
+  &__item {
+    border-bottom: 1px solid rgb(192, 192, 192);
+    padding: 5px 20px;
+    .category {
+      text-transform: capitalize;
+    }
+    .data {
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
+  > div:nth-child(7n) {
+    border-bottom: none;
+  }
+}
+
+.style__chart {
+  height: 335px;
+}
+
+.wrapper__boxes {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-between;
+}

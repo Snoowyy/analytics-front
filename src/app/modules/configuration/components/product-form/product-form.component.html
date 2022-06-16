@@ -1,0 +1,72 @@
+<form class="k-form" [formGroup]="productForm" (ngSubmit)="saveProduct()">
+  <fieldset>
+    <label class="k-form-field">
+      <span>GLN INDUSTRIAL</span>
+      <input class="k-textbox"
+        formControlName="IndustrialGln"
+        placeholder="Ej: 01234564"/>
+    </label>
+    <label class="k-form-field">
+      <span>GTIN</span>
+      <input class="k-textbox"
+        formControlName="Gtin"
+        placeholder="Ej: 123456789"/>
+    </label>
+    <label class="k-form-field">
+      <span>CODIGO INTERNO </span>
+      <input class="k-textbox"
+        formControlName="InternalCode"
+        placeholder="Código interno del producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>NIVEL 1 </span>
+      <input class="k-textbox"
+        formControlName="Label1"
+        placeholder="Nivel más general de categorización de producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>NIVEL 2 </span>
+      <input class="k-textbox"
+        formControlName="Label2"
+        placeholder="Nivel II de categorización de producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>NIVEL 3 </span>
+      <input class="k-textbox"
+        formControlName="Label3"
+        placeholder="Nivel II de categorización de producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>NIVEL 4 </span>
+      <input class="k-textbox"
+        formControlName="Label4"
+        placeholder="Nivel IV de categorización de producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>PRIORIDAD </span>
+      <input class="k-textbox"
+        formControlName="Priority"
+        placeholder="Ej: Innovación o Promoción"/>
+    </label>
+    <label class="k-form-field">
+      <span>PRODUCTO </span>
+      <input class="k-textbox"
+        formControlName="Name"
+        placeholder="Descripción del producto"/>
+    </label>
+    <label class="k-form-field">
+      <span>CONVERSION </span>
+      <input class="k-textbox"
+        formControlName="ConversionFactor"
+        placeholder="Factor de conversión "/>
+    </label>
+  </fieldset>
+  <div class="text-right">
+    <button type="button" id="cancelForm" class="k-button btn btn-warning" (click)="emitClose()">
+      Cancelar
+    </button>
+    <button type="submit" class="k-button k-primary btn btn-primary">
+      Subir
+    </button>
+  </div>
+</form>
